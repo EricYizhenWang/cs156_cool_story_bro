@@ -1,0 +1,25 @@
+All .dta files are raw binary files.
+
+(probe, hidden, valid) .dta are exactly what their name suggest.
+First column is user index
+Second column is movie index
+Third is the rating.
+Forth is the date.
+
+The qual.dta is the set we are going to test.
+It only has 3 column. (user, movie, date), no rating.
+
+The training set is divided into 4 parts
+user.dta
+movie.dta
+rating.dta
+date.dta
+
+If you combine the ith entry of each file into a tuple, you get exactly the ith (user, movie, rating, date) tuple in the input.
+Notice the tuples are ordered according to movie index.
+
+The movie_a.dta is the average rating of all movies, sorted by movie index
+
+The user_a.dta is the average rating given by each user, sorted by user index
+ 
+And have fun.
