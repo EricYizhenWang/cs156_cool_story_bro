@@ -11,4 +11,5 @@ def read(filename, typename):
 def printToTxt(nparray, filename):
     np.savetxt(filename, nparray)
     
-    
+def printToBin(nparray, filename):
+    np.save(filename, nparray)
