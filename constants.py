@@ -44,7 +44,7 @@ def validPath():
     return 'binary/valid.dta'
 
 def SVDUserFeatPath():
-    return 'binary/userfeat.dta'
+    return 'binary/userfeat.npy'
 
 def SVDMovieFeatPath():
-    return 'binary/moviefeat.dta'
+    return 'binary/moviefeat.npy'

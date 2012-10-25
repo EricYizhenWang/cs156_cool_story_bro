@@ -19,8 +19,8 @@ def svd(rate, n, dim):
             error = ratingj - prediction
             userfeat[userj] += error * rate * moviefeat[moviej]
             moviefeat[moviej] += error * rate * userfeat[userj]
-    printToBin(SVDUserFeatPath(), userfeat)
-    printToBin(SVDMovieFeatPath(), moviefeat)
+    printToBin(userfeat, SVDUserFeatPath())
+    printToBin(moviefeat, SVDMovieFeatPath())
 
 if __name__ == '__main__':
     svd(0.001, 100, 40)
