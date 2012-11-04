@@ -47,7 +47,6 @@ def svd():
     
     start_time = time.time()
     # Calculate a good baseline
-    # BetterMean = [GlobalAverage*K + sum(ObservedRatings)] / [K + count(ObservedRatings)]
     cdef double globalTotal = 0
     cdef np.ndarray[ushort, ndim=1] userRates = np.empty(numU, 'uint16')
     cdef np.ndarray[ushort, ndim=1] movieRates = np.empty(numM, 'uint16')
