@@ -48,3 +48,36 @@ def SVDUserFeatPath():
 
 def SVDMovieFeatPath():
     return 'binary/moviefeat.npy'
+
+def userAvgPath():
+    return 'binary/user_a.dta'
+
+def movieAvgPath():
+    return 'binary/movie_a.dta'
+
+def movieSmthAvgPath():
+    return 'binary/movieAvg.dta'
+
+def userSmthAvgPath():
+    return 'binary/userAvg.dta'
+
+def offsetPath():
+    return 'binary/offset.dta'
+
+def SVDNumFeat():
+    return 100
+
+def SVDNumEpoch():
+    return 130
+
+def SVDRegRatio():
+    return 0.02
+
+def SVDLearnRate():
+    return 0.001
+
+def globalAvg():
+    return 2.60860890183
+
+def SVDResultPath():
+    return 'SVDRating.dta'
