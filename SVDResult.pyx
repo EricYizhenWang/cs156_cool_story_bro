@@ -17,17 +17,17 @@ def SVDResult():
     cdef np.ndarray[double, ndim = 1] rating = np.empty(ctn.qualSize(), 'float')
     cdef np.ndarray[double, ndim = 1] movieAvg = np.empty((nMov), 'float')
     cdef np.ndarray[double, ndim = 1] userAvg = np.empty((nUser), 'float')
-    cdef np.ndarray[double, ndim = 1] offset = np.empty((nUser), 'float')
+    cdef np.ndarray[double, ndim = 1] userOffset = np.empty((nUser), 'float')
     movieAvg = np.loadtxt(ctn.movieSmthAvgPath())
     userAvg = np.loadtxt(ctn.userSmthAvgPath())
-    offset = np.loadtxt(ctn.offsetPath())
+    userOffset = np.loadtxt(ctn.userOffsetPath())
     globalAvg = ctn.globalAvg()
     
     start_time = time.time()
     for i in range(ctn.qualSize()):
         user = toRate[3*i] - 1
         movie = toRate[3*i+1] - 1
-        a = movieAvg[movie] + offset[user]
+        a = movieAvg[movie] + userOffset[user]
         for j in range(nFeat):
             a += (movFeat[movie*nFeat + j] * userFeat[user*nFeat + j])
             if (a > 5):

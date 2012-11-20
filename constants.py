@@ -61,7 +61,7 @@ def movieSmthAvgPath():
 def userSmthAvgPath():
     return 'binary/userAvg.dta'
 
-def offsetPath():
+def userOffsetPath():
     return 'binary/offset.dta'
 
 def SVDNumFeat():
