@@ -2,14 +2,14 @@ cimport cython
 cimport numpy as np
 import numpy as np
 import time
-from math import sqrt
+from math import sqrt, log, floor
 import constants as ctn
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 
 def svd():
-    cdef int i, j, k, p, user, movie, nIter, nFeat, nUser, nMov, nTrain
+    cdef int i, j, k, p, user, movie, freq, nIter, nFeat, nUser, nMov, nTrain
     cdef double lrate, pred, delta, reg, u, m, temp
     lrate = ctn.SVDLearnRate()
     reg = lrate * ctn.SVDRegRatio()
@@ -106,8 +106,28 @@ def svd():
             movie = moviedata[i] - 1
             pred_archive[i] += userf[user] * movief[movie]
         print "Feature ", j, ": Done"
-            
     print "SVD took: ", time.time() - start_time, "seconds"
+
+    # Compute the frequency offset
+    start_time = time.time()
+    cdef double base = ctn.freqLogBase()
+    cdef int maxUserRates = np.amax(userRates)
+    cdef int maxFreq = floor(log(maxUserRates, base))
+    cdef np.ndarray[double, ndim=2] freqOffset = np.zeros([nMov, maxFreq + 1], 'float')
+    cdef np.ndarray[uint, ndim=2] freqOffsetCount = np.zeros([nMov, maxFreq + 1], 'uint32')
+    for i in range(nTrain):
+        user = userdata[i] - 1
+        movie = moviedata[i] - 1
+        freq = floor(log(userRates[user], base))
+        freqOffset[movie, freq] += ratingdata[i] - pred_archive[i]
+        freqOffsetCount[movie, freq] += 1
+    for i in range(nMov):
+        for j in range(maxFreq + 1):
+            freqOffset[i, j] = freqOffset[i, j] / (freqOffsetCount[i, j] + w * 0.1)
+    np.savetxt(ctn.freqOffsetPath(), freqOffset)
+    print "Max frequency: ", maxFreq
+    print "Computing frequency offset took: ", time.time() - start_time, "seconds"
+            
     start_time = time.time()
     # Compute the mean square error
     cdef double totalErr = 0
